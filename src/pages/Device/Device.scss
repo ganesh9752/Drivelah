@@ -1,0 +1,263 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.device {
+  flex: 1;
+  padding: $spacing-xl;
+  background-color: $background-off-white; // #FCFCFC exact from specs
+
+  &--desktop {
+    .device__container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+
+  &--mobile {
+    padding: $spacing-md;
+
+    .device__container {
+      max-width: 100%;
+    }
+  }
+
+  &__container {
+    background-color: $background-white;
+    border-radius: $radius-lg;
+    padding: $spacing-xl; // Reduced from 2xl
+    box-shadow: $shadow-sm;
+
+    @include mobile {
+      padding: $spacing-lg;
+    }
+  }
+
+  &__header {
+    margin-bottom: $spacing-xl;
+  }
+
+  &__title {
+    font-size: 37.33px; // 28pt exact from specs
+    font-weight: $font-weight-black; // 900 from specs
+    color: $primary-teal-dark; // #026786 from specs
+    margin-bottom: $spacing-sm;
+    line-height: 56px; // Exact from specs
+    letter-spacing: -0.31px; // -31.25 from specs
+    font-family: $font-family;
+
+    @include mobile {
+      font-size: 28px;
+      line-height: 42px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 24px; // 18pt from specs (not 20pt)
+    color: $text-primary; // #4A4A4A from specs
+    margin-top: $spacing-sm;
+    line-height: 1.5;
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__content {
+    margin-top: $spacing-xl;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__section {
+    background-color: $background-white;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    padding: $spacing-xl;
+    box-shadow: $shadow-sm;
+  }
+
+  &__section-title {
+    font-size: 24px; // 18pt from specs (not 20pt)
+    font-weight: $font-weight-medium; // 500 from specs
+    color: $text-primary; // #4A4A4A from specs
+    margin-bottom: $spacing-lg;
+    line-height: 22px; // Exact from specs
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md; // Reduced from lg
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    &--flex {
+      flex: 1;
+    }
+  }
+
+  &__field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xl;
+    align-items: flex-start;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+    }
+  }
+
+  &__label {
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    font-weight: $font-weight-medium; // 500 from specs
+    color: $text-primary; // #4A4A4A from specs
+    line-height: 1.5;
+  }
+
+  &__input {
+    padding: $spacing-sm $spacing-md; // Reduced vertical padding
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    font-family: $font-family;
+    color: $text-primary; // #4A4A4A from specs
+    transition: border-color $transition-fast;
+
+    &:focus {
+      border-color: $primary-teal;
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $text-light;
+      font-size: 21.33px; // 16pt from specs (not 18pt)
+    }
+  }
+
+  &__select {
+    padding: $spacing-sm $spacing-md; // Reduced vertical padding
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    font-family: $font-family;
+    color: $text-primary; // #4A4A4A from specs
+    background-color: $background-white;
+    transition: border-color $transition-fast;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%234A4A4A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $spacing-md center;
+    padding-right: $spacing-2xl;
+
+    &:focus {
+      border-color: $primary-teal;
+      outline: none;
+    }
+
+    &:hover {
+      border-color: $primary-teal;
+    }
+  }
+
+  &__toggle-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__toggle-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-md;
+  }
+
+  &__toggle-label {
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    font-weight: $font-weight-medium; // 500 from specs
+    color: $text-primary; // #4A4A4A from specs
+    cursor: pointer;
+    flex: 1;
+  }
+
+  &__toggle-help {
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    color: $text-secondary; // #707070 from specs
+    line-height: 1.5;
+    margin: 0;
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__upload-area {
+    border: 2px dashed $border-color;
+    border-radius: $radius-md;
+    padding: $spacing-lg; // Reduced from xl
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-sm; // Reduced from md
+    cursor: pointer;
+    transition: all $transition-fast;
+    min-height: 150px; // Reduced from 200px
+    background-color: $background-white;
+
+    &:hover {
+      border-color: $primary-teal; // #00A3AD
+      background-color: rgba(0, 163, 173, 0.05); // #00A3AD with 5% opacity
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue-accent;
+      outline-offset: 2px;
+    }
+  }
+
+  &__upload-placeholder {
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__upload-text {
+    color: $primary-teal; // Teal color to match icon
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    font-weight: $font-weight-medium;
+  }
+
+  &__upload-icon {
+    width: 24px;
+    height: 24px;
+    color: $primary-teal;
+  }
+
+  &__upload-preview {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: $radius-md;
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $spacing-2xl;
+    padding-top: $spacing-xl;
+    border-top: 1px solid $border-color;
+
+    @include mobile {
+      margin-top: $spacing-xl;
+    }
+  }
+
+  &__next-button {
+    min-width: 120px;
+  }
+}
+

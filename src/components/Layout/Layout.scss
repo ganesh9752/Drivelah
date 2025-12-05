@@ -1,0 +1,29 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &--desktop {
+    .layout__content {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 80px);
+    }
+
+    .layout__main {
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+
+  &--mobile {
+    .layout__main {
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+}
+

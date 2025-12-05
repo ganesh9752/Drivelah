@@ -1,0 +1,427 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.subscription {
+  flex: 1;
+  padding: $spacing-xl;
+  background-color: $background-off-white; // #FCFCFC exact from specs
+
+  &--desktop {
+    .subscription__container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+
+  &--mobile {
+    padding: $spacing-md;
+
+    .subscription__container {
+      max-width: 100%;
+    }
+  }
+
+  &__container {
+    background-color: $background-white;
+    border-radius: $radius-lg;
+    padding: $spacing-xl; // Reduced from 2xl
+    box-shadow: $shadow-sm;
+
+    @include mobile {
+      padding: $spacing-lg;
+    }
+  }
+
+  &__header {
+    margin-bottom: $spacing-xl;
+  }
+
+  &__title {
+    font-size: 37.33px; // 28pt exact from specs
+    font-weight: $font-weight-black; // 900 from specs
+    color: $primary-teal-dark; // #026786 from specs
+    margin-bottom: $spacing-sm;
+    line-height: 56px; // Exact from specs
+    letter-spacing: -0.31px; // -31.25 from specs (converted)
+    font-family: $font-family;
+
+    @include mobile {
+      font-size: 28px; // Slightly smaller for mobile
+      line-height: 42px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 26.67px; // 20pt from specs
+    color: $text-primary; // #4A4A4A from specs
+    margin-top: $spacing-sm;
+    line-height: 22px; // Exact from specs
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__content {
+    margin-top: $spacing-xl;
+  }
+
+  &__section-title {
+    font-size: 26.67px; // 20pt from specs
+    font-weight: $font-weight-medium; // 500 from specs
+    color: $text-primary; // #4A4A4A from specs
+    margin-bottom: $spacing-md; // Reduced from lg
+    line-height: 22px; // Exact from specs
+  }
+
+  &__plans {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-md; // Reduced from lg
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+      flex-direction: column;
+      gap: $spacing-md;
+    }
+  }
+
+  &__plan-card {
+    @include card;
+    flex: 1;
+    cursor: pointer;
+    transition: all $transition-base;
+    border: 1px solid $border-color; // Default border (1px, not 2px)
+
+    &:hover:not(.subscription__plan-card--disabled) {
+      border-color: #00BFA5; // #00BFA5 from design specs
+      box-shadow: $shadow-sm; // Lighter shadow
+    }
+
+    &--selected {
+      border: 1px solid #00BFA5; // #00BFA5 from design specs
+      background-color: rgba(0, 191, 165, 0.05); // #00BFA5 with 5% opacity
+      box-shadow: none; // No shadow when selected
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue-accent;
+      outline-offset: 2px;
+    }
+  }
+
+  &__plan-header {
+    @include flex-between;
+    margin-bottom: $spacing-md; // Reduced from lg
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__plan-name {
+    font-size: 26.67px; // 20pt from specs
+    font-weight: $font-weight-medium; // 500 from specs
+    color: $text-primary; // #4A4A4A from specs
+    line-height: 22px; // Exact from specs
+  }
+
+  &__plan-price {
+    font-size: 24px; // 18pt from specs
+    font-weight: $font-weight-bold; // 700 from specs
+    color: $primary-teal-dark; // #026786 from specs
+  }
+
+  &__plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__plan-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-sm;
+    font-size: 24px; // 18pt from specs
+    color: $text-primary; // #4A4A4A from specs
+    line-height: 1.5;
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__feature-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
+
+    &--info {
+      width: 14px;
+      height: 14px;
+    }
+
+    &--check {
+      width: 20px;
+      height: 20px;
+    }
+
+    &--lock {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__info {
+    font-size: 24px; // 18pt from specs
+    color: $text-primary; // #4A4A4A from specs
+    line-height: 1.5;
+    margin-bottom: $spacing-md;
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__link {
+    color: $blue-accent;
+    text-decoration: underline;
+
+    &:hover {
+      color: $primary-teal;
+    }
+  }
+
+  &__addons {
+    margin-top: $spacing-2xl;
+    margin-bottom: $spacing-xl;
+    padding-top: $spacing-xl;
+    border-top: 1px solid $border-color;
+  }
+
+  &__addons-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__addon-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-md;
+    width: 100%;
+    padding: $spacing-md $spacing-lg;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    background-color: $background-white;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover:not(.subscription__addon-item--disabled) {
+      border-color: #00BFA5; // #00BFA5 from design specs
+      background-color: rgba(0, 191, 165, 0.05); // #00BFA5 with 5% opacity
+    }
+
+    &--selected {
+      border-color: #00BFA5; // #00BFA5 from design specs
+      background-color: rgba(0, 191, 165, 0.05); // #00BFA5 with 5% opacity
+    }
+
+    &--disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__addon-radio {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: $primary-teal; // Teal color for radio button
+    flex-shrink: 0;
+  }
+
+  &__addon-coming-soon {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    background-color: $text-light; // #B2B2B2
+    color: $background-white; // #FFFFFF
+    font-size: $font-size-xs;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-sm;
+    z-index: 1;
+    font-weight: $font-weight-medium;
+  }
+
+  &__addon-content {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    flex: 1;
+  }
+
+  &__addon-name {
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    color: $primary-teal; // Teal color for add-on name
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__addon-price {
+    font-size: 21.33px; // 16pt from specs (not 18pt)
+    color: $primary-teal; // Teal color for add-on price
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__card-details {
+    margin-top: $spacing-2xl;
+    margin-bottom: $spacing-xl;
+    padding-top: $spacing-xl;
+    border-top: 1px solid $border-color;
+  }
+
+  &__card-form {
+    margin-top: $spacing-md;
+  }
+
+  &__card-inline {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    padding: $spacing-sm $spacing-md;
+    background-color: $background-white;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+
+    &:focus-within {
+      border-color: #00BFA5;
+      box-shadow: 0 0 0 2px rgba(0, 191, 165, 0.1);
+    }
+  }
+
+  &__card-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: $text-light;
+  }
+
+  &__card-inline-input {
+    border: none;
+    background: transparent;
+    font-size: 21.33px; // 16pt from specs
+    font-family: $font-family;
+    color: $text-primary;
+    padding: 0;
+    min-width: 0; // allow flex shrink
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $text-light;
+      font-size: 21.33px;
+    }
+
+    &--number {
+      flex: 1;
+    }
+
+    &--small {
+      width: 72px;
+      text-align: left;
+    }
+  }
+
+  &__card-info {
+    font-size: 24px; // 18pt from specs
+    color: $text-primary; // #4A4A4A from specs
+    line-height: 1.5;
+    margin-top: $spacing-md;
+    margin-bottom: 0;
+    font-weight: $font-weight-medium; // 500 from specs
+  }
+
+  &__frozen-message {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left: 4px solid $yellow-button;
+    padding: $spacing-md;
+    border-radius: $radius-sm;
+    margin-bottom: $spacing-lg;
+
+    p {
+      color: $text-primary;
+      font-size: $font-size-base;
+      margin: 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $spacing-2xl;
+    padding-top: $spacing-xl;
+    border-top: 1px solid $border-color;
+
+    @include mobile {
+      margin-top: $spacing-xl;
+    }
+  }
+
+  &__next-button {
+    min-width: 120px;
+  }
+
+  &__learn-more {
+    margin-top: $spacing-lg;
+  }
+
+  &__plans-overview {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+      flex-direction: column;
+      gap: $spacing-md;
+    }
+  }
+
+  &__plan-overview-card {
+    @include card;
+    flex: 1;
+    border: 1px solid $border-color;
+    transition: all $transition-base;
+
+    &--clickable {
+      cursor: pointer;
+
+      &:hover {
+        border-color: #00BFA5; // #00BFA5 from design specs
+        box-shadow: $shadow-sm;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $blue-accent;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &__plan-cta {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid $border-color;
+  }
+
+  &__select-plan-button {
+    width: 100%;
+  }
+}
+

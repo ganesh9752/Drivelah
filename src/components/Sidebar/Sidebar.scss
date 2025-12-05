@@ -1,0 +1,78 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.sidebar {
+  width: 240px;
+  padding: $spacing-xl;
+  background-color: $background-white;
+  border-right: 1px solid $border-color;
+  min-height: calc(100vh - 80px);
+
+  @include mobile {
+    display: none;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__step {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-sm 0;
+    position: relative;
+    color: $text-secondary;
+    font-size: 24px; // 18pt from specs
+    font-family: $font-family;
+    font-weight: $font-weight-medium; // 500 from specs
+    transition: color $transition-fast;
+
+    &--completed {
+      color: $blue-accent;
+
+      .sidebar__step-text {
+        color: $blue-accent;
+      }
+    }
+
+    &--active {
+      color: $primary-teal;
+      font-weight: $font-weight-semibold;
+
+      .sidebar__step-text {
+        color: $primary-teal;
+      }
+    }
+
+    &--disabled {
+      color: $text-light;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(.sidebar__step--disabled) {
+      color: $primary-teal;
+    }
+  }
+
+  &__indicator {
+    position: absolute;
+    left: -$spacing-xl;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: $primary-teal;
+    border-radius: 0 2px 2px 0;
+  }
+
+  &__check-icon {
+    flex-shrink: 0;
+  }
+
+  &__step-text {
+    flex: 1;
+  }
+}
+

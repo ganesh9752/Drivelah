@@ -1,0 +1,107 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  width: 100%;
+
+  &--desktop {
+    .header__teal-bar {
+      background-color: $primary-teal;
+      padding: $spacing-md $spacing-xl;
+    }
+
+    .header__container {
+      @include flex-between;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .header__logo {
+      @include flex-center;
+      gap: $spacing-sm;
+      color: white;
+
+      .header__logo-text {
+        font-size: 24px; // 18pt from specs
+        font-weight: $font-weight-medium; // 500 from specs
+        color: white;
+        font-family: $font-family;
+      }
+    }
+
+    .header__nav {
+      @include flex-center;
+      gap: $spacing-lg;
+
+      .header__nav-link {
+        color: white;
+        font-size: 24px; // 18pt from specs
+        font-weight: $font-weight-medium; // 500 from specs
+        font-family: $font-family;
+        transition: opacity $transition-fast;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      .header__profile-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        @include flex-center;
+        cursor: pointer;
+        transition: background-color $transition-fast;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
+
+  &--mobile {
+    .header__container {
+      @include flex-between;
+      padding: $spacing-md;
+      background-color: $primary-teal;
+    }
+
+    .header__menu-button {
+      background: none;
+      border: none;
+      color: white;
+      padding: $spacing-xs;
+      @include flex-center;
+      cursor: pointer;
+    }
+
+    .header__logo {
+      @include flex-center;
+      gap: $spacing-sm;
+      flex: 1;
+      justify-content: center;
+
+      .header__logo-text {
+        font-size: 24px; // 18pt from specs
+        font-weight: $font-weight-medium; // 500 from specs
+        color: white;
+        font-family: $font-family;
+      }
+    }
+
+    .header__profile {
+      .header__profile-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        @include flex-center;
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
