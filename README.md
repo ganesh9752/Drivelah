@@ -22,7 +22,7 @@ A responsive web application for managing car listings with subscription plans a
 1. **Clone the repository** (if applicable) or navigate to the project directory:
 
    ```bash
-   cd diverlah
+   cd Drivelah
    ```
 
 2. **Install dependencies**:
