@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { AppStore, AppState } from './types'
+import type { AppStore, AppState, SubscriptionPlan, Device, CardDetails } from './types'
 
 const STORAGE_KEY = 'diverlah-storage'
 
@@ -18,27 +18,27 @@ const initialState: AppState = {
 }
 
 export const useAppStore = create<AppStore>()(
-  persist(
+  persist<AppStore, [], [], AppState>(
     (set) => ({
       ...initialState,
-      setSelectedPlan: (plan) => set({ selectedPlan: plan }),
-      addDevice: (device) =>
+      setSelectedPlan: (plan: SubscriptionPlan | null) => set({ selectedPlan: plan }),
+      addDevice: (device: Device) =>
         set((state) => ({
           devices: [...state.devices, device],
         })),
-      updateDevice: (id, updates) =>
+      updateDevice: (id: string, updates: Partial<Device>) =>
         set((state) => ({
           devices: state.devices.map((device) =>
             device.id === id ? { ...device, ...updates } : device
           ),
         })),
-      removeDevice: (id) =>
+      removeDevice: (id: string) =>
         set((state) => ({
           devices: state.devices.filter((device) => device.id !== id),
         })),
-      setCurrentStep: (step) => set({ currentStep: step }),
-      setIsFrozen: (frozen) => set({ isFrozen: frozen }),
-      toggleAddon: (id) =>
+      setCurrentStep: (step: 'subscription' | 'device') => set({ currentStep: step }),
+      setIsFrozen: (frozen: boolean) => set({ isFrozen: frozen }),
+      toggleAddon: (id: string) =>
         set((state) => ({
           addons: state.addons.map((addon) =>
             addon.id === id
@@ -46,16 +46,17 @@ export const useAppStore = create<AppStore>()(
               : { ...addon, selected: false } // Radio buttons: only one can be selected
           ),
         })),
-      setCardDetails: (details) => set({ cardDetails: details }),
+      setCardDetails: (details: CardDetails) => set({ cardDetails: details }),
       reset: () => set(initialState),
     }),
     {
       name: STORAGE_KEY,
-      merge: (persistedState: any, currentState: AppState) => {
+      merge: (persistedState: unknown, currentState: AppStore): AppStore => {
         // Ensure addons array always has all required addons
+        const persisted = persistedState as Partial<AppState>
         const requiredAddonIds = ['byo-secondary-gps', 'byo-lockbox', 'between-trip-insurance']
         const mergedAddons = requiredAddonIds.map((id) => {
-          const existing = persistedState?.addons?.find((a: any) => a.id === id)
+          const existing = persisted?.addons?.find((a) => a.id === id)
           if (existing) {
             return existing
           }
@@ -63,10 +64,21 @@ export const useAppStore = create<AppStore>()(
           return currentState.addons.find((a) => a.id === id) || currentState.addons[0]
         })
         
+        // Merge persisted state with current state, preserving all store methods
         return {
           ...currentState,
-          ...persistedState,
+          ...persisted,
           addons: mergedAddons,
+          // Preserve all store methods
+          setSelectedPlan: currentState.setSelectedPlan,
+          addDevice: currentState.addDevice,
+          updateDevice: currentState.updateDevice,
+          removeDevice: currentState.removeDevice,
+          setCurrentStep: currentState.setCurrentStep,
+          setIsFrozen: currentState.setIsFrozen,
+          toggleAddon: currentState.toggleAddon,
+          setCardDetails: currentState.setCardDetails,
+          reset: currentState.reset,
         }
       },
     }
